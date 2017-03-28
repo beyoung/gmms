@@ -35455,5 +35455,5 @@ var houseToCoordley = {
 };
 
 
-// var demoTracks = [blodgett, drive, houseToCoordley, tillicum];
-var demoTracks = [blodgett];
+var demoTracks = [blodgett, drive, houseToCoordley, tillicum];
+// var demoTracks = [blodgett];

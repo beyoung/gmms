@@ -28,6 +28,18 @@ function switcher(timelineSwitcher, heatmapSwitcher, featureSwitcher, timeLineSw
 
 //隐藏时间线功能及其控件
 function switchSimPanel(switcher) {
+    if (airlineArea != null) {
+        map.removeLayer(airlineArea);
+    }
+
+    if (airlineMarker != null) {
+        map.removeLayer(airlineMarker);
+    }
+
+    if (airline != null) {
+        map.removeLayer(airline);
+    }
+
     if (switcher === 'on') {
         $('body').append($('<div/>', {
             id: 'timeline'

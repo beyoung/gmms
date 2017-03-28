@@ -4,6 +4,7 @@
 
 
 $('#trackSimulation').on('click', function () {
+    clearAirline();
     if (timeline == null) {
         $('body').append($('<div/>', {
             id: 'timeline'
@@ -11,7 +12,41 @@ $('#trackSimulation').on('click', function () {
         bodyElment.classList.add('body-show-timeline');
         initTimeLine();
     }
+    map.closePopup();
 });
+
+
+$('#trackSimulation1').on('click', function () {
+    map.closePopup();
+    $('#timeline').remove();
+    if (playback != null) {
+        playback.destroy();
+    }
+    timeline = null;
+    if (airlineArea != null) {
+        map.removeLayer(airlineArea);
+    }
+
+    if (airlineMarker != null) {
+        map.removeLayer(airlineMarker);
+    }
+
+    if (airline != null) {
+        map.removeLayer(airline);
+    }
+    bodyElment.classList.remove('body-show-timeline');
+
+    if (airlineMarker == null) {
+
+        initAirLine();
+    } else {
+        map.fitBounds(airlineArea.getBounds());
+        map.addLayer(airlineMarker);
+        map.addLayer(airline);
+        map.addLayer(airlineArea);
+    }
+});
+
 
 var count = 1;
 function showAirlineLabel(latlng) {
@@ -43,7 +78,7 @@ function showAirlineLabel(latlng) {
     count += 1;
 }
 
-function initTimeLine() {
+function initAirLine() {
     airlineArea = L.geoJson.ajax('dist/json/airline_area.geojson', {
         style: function () {
             return {
@@ -75,21 +110,44 @@ function initTimeLine() {
             }
         }
     });
-
-    airlineMarker = L.geoJSON.ajax('dist/json/airline_point.json', {
-        pointToLayer: function (feature, latlng) {
-            var airIcon = L.icon({
-                iconUrl: 'dist/css/images/plane.png',
-                iconSize: [50, 50]
-            });
-            return L.marker(latlng, {icon: airIcon});
-        }
+    var airIcon = L.icon({
+        iconUrl: 'dist/css/images/plane.png',
+        iconSize: [50, 50]
     });
+    airlineMarker = L.marker([22.268184071958633, 111.14485696520126], {icon: airIcon});
+
+    // airlineMarker = L.geoJSON.ajax('dist/json/airline_point.json', {
+    //     pointToLayer: function (feature, latlng) {
+    //         var airIcon = L.icon({
+    //             iconUrl: 'dist/css/images/plane.png',
+    //             iconSize: [50, 50]
+    //         });
+    //         return L.marker(latlng, {icon: airIcon});
+    //     }
+    // });
     airlineMarker.on('click', function (e) {
         showAirlineLabel(e.latlng);
     });
 
+    map.addLayer(airlineMarker);
+    map.addLayer(airline);
+    map.addLayer(airlineArea);
+}
 
+function clearAirline() {
+    if (airlineArea != null) {
+        map.removeLayer(airlineArea);
+    }
+    if (airline != null) {
+        map.removeLayer(airline);
+    }
+    if (airlineMarker != null) {
+        map.removeLayer(airlineMarker);
+    }
+}
+
+function initTimeLine() {
+    // Get start/end times
     // Get start/end times
     var startTime = new Date(demoTracks[0].properties.time[0]);
     var endTime = new Date(demoTracks[0].properties.time[demoTracks[0].properties.time.length - 1]);
@@ -105,10 +163,7 @@ function initTimeLine() {
         "axisOnTop": true,
         "showCustomTime": true,
         "labels": true,
-        "popups": true,
-        "itemsAlwaysDraggable": false,
-        "moveable": false
-
+        "popups": true
     };
 
     // Setup timeline
@@ -122,8 +177,6 @@ function initTimeLine() {
         playControl: true,
         dateControl: true,
         popups: true,
-        itemsAlwaysDraggable: false,
-        moveable: false,
         // layer and marker options
         layer: {
             pointToLayer: function (featureData, latlng) {
@@ -141,9 +194,9 @@ function initTimeLine() {
         },
 
         marker: {
-            getPopup: function (featureData) {
-                return '项目进度';
-            }
+            // getPopup: function (featureData) {
+            //     return '项目进度';
+            // }
         }
 
     };
@@ -151,8 +204,10 @@ function initTimeLine() {
     playback = new L.Playback(map, null, onPlaybackTimeChange, playbackOptions);
 
     // ui setup
-    // $('.leaflet-popup-content-wrapper').width(200);
-    // $('.leaflet-popup-content').width(200);
+    $('.leaflet-popup-content-wrapper').width(200);
+    $('.leaflet-popup-content').width(200);
+    // $('.leaflet-popup-content').html('<h3>广州某工程施工播报</h3>');
+
     $('.ui.progress').progress({
         total: 100,
         percent: 0,
@@ -165,44 +220,45 @@ function initTimeLine() {
     playback.setData(demoTracks);
     playback.addData(blueMountain);
 
+    // Uncomment to test data reset;
+    //playback.setData(blueMountain);
+
     // Set timeline time change event, so cursor is set after moving custom time (blue)
     timeline.on('timechange', onCustomTimeChange);
 
     // A callback so timeline is set after changing playback time
     var tick = 0;
 
-    // showAirlineLabel([22.268184071958633, 111.14485696520126]);
-    map.addLayer(airlineMarker);
-    map.addLayer(airline);
-    map.addLayer(airlineArea);
-
     function onPlaybackTimeChange(ms) {
-        // timeline.setCustomTime(new Date(ms).toISOString());
-        //
-        // var $progress = $('.ui.progress');
-        // $progress.progress('increment');
-        // tick += 0.2;
+        timeline.setCustomTime(new Date(ms).toISOString());
+        var today = new Date(ms);
+        var todayStr = today.getFullYear() + '-0' + (today.getMonth() - 1) + '-' + today.getDate();
+        var $progress = $('.ui.progress');
+        $progress.progress('increment');
 
-        // if (tick > 100) {
-        //     playback.stop();
-        //     $('#progress').text('施工完成！');
-        //     $('#example1').progress({
-        //         percent: 100
-        //     });
-        // } else {
-        //     $('#progress').text(tick.toFixed(2) + '%');
-        //     $('#example1').progress({
-        //         percent: tick.toFixed(2)
-        //     });
-        // }
+        $('.datetimeControl').html('<p> ' + todayStr + ' 当前施工进度:</p><div class="ui teal progress" data-percent="0" id="example1"> <div class="bar"></div> <div class="label" id="progress">0</div> </div> ');
+
+        tick += 0.02;
+        $('.leaflet-popup-content-wrapper').width(200);
+        $('.leaflet-popup-content').width(200);
+        // $('.leaflet-popup-content').html('<h3>广州某工程施工播报</h3>');
+        if (tick > 100) {
+            playback.stop();
+            $('#progress').text('施工完成！');
+            $('#example1').progress({
+                percent: 100
+            });
+        } else {
+            $('#progress').text(tick.toFixed(2) + '%');
+            $('#example1').progress({
+                percent: tick.toFixed(2)
+            });
+        }
     };
-    // $('.datetimeControl').html('施工进展面板');
-    $('.leaflet-control-layers-expanded').css('display', 'none');
-    $('.leaflet-popup-content-wrapper').width(180).height(110);
-
+    $('.datetimeControl').html('施工进展面板');
     function onCustomTimeChange(properties) {
         if (!playback.isPlaying()) {
-            // playback.setCursor(properties.time.getTime());
+            playback.setCursor(properties.time.getTime());
         }
     }
 };
