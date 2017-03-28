@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Id": 1 ,"name":"MG-890 line 1"}, "geometry": { "type": "LineString", "coordinates": [ [ 111.06930138682058, 22.424604214267511 ], [ 111.39409781411641, 22.334184696045963 ], [ 111.39290808361349, 22.334184696045963 ] ] } },
+{ "type": "Feature", "properties": { "Id": 2,"name":"MG-890 line 2" }, "geometry": { "type": "LineString", "coordinates": [ [ 111.0395581242477, 22.388912299180056 ], [ 111.36435455154353, 22.298492780958508 ], [ 111.36316482104061, 22.298492780958508 ] ] } },
+{ "type": "Feature", "properties": { "Id": 3,"name":"MG-890 line 3" }, "geometry": { "type": "LineString", "coordinates": [ [ 111.01695324469232, 22.348461462080941 ], [ 111.34174967198814, 22.258041943859393 ], [ 111.34055994148522, 22.258041943859393 ] ] } },
+{ "type": "Feature", "properties": { "Id": 4,"name":"MG-890 line 4" }, "geometry": { "type": "LineString", "coordinates": [ [ 111.08119869184974, 22.449588554828729 ], [ 111.40599511914556, 22.359169036607181 ], [ 111.40480538864264, 22.359169036607181 ] ] } },
+{ "type": "Feature", "properties": { "Id": 5,"name":"MG-890 line 5" }, "geometry": { "type": "LineString", "coordinates": [ [ 111.0026717863521, 22.307766759110777 ], [ 111.32746821364792, 22.217347240889229 ], [ 111.326278483145, 22.217347240889229 ] ] } },
+{ "type": "Feature", "properties": { "Id": 6 ,"name":"MG-890 line 6"}, "geometry": { "type": "LineString", "coordinates": [ [ 110.98720998211944, 22.27112897939146 ], [ 111.31200640941526, 22.180709461169911 ], [ 111.31081667891235, 22.180709461169911 ] ] } },
+{ "type": "Feature", "properties": { "Id": 7,"name":"MG-890 line 7" }, "geometry": { "type": "LineString", "coordinates": [ [ 110.96460510256405, 22.225919220280684 ], [ 111.28940152985987, 22.135499702059136 ], [ 111.28821179935696, 22.135499702059136 ] ] } },
+{ "type": "Feature", "properties": { "Id": 8,"name":"MG-890 line 8" }, "geometry": { "type": "LineString", "coordinates": [ [ 110.94200022300866, 22.183088922175742 ], [ 111.4095643106543, 22.049839105849248 ] ] } },
+{ "type": "Feature", "properties": { "Id": 9,"name":"MG-890 line 9" }, "geometry": { "type": "LineString", "coordinates": [ [ 110.92772345697368, 22.143827815579542 ], [ 111.39171835311058, 22.015336921264709 ] ] } },
+{ "type": "Feature", "properties": { "Id": 10,"name":"MG-890 line 10" }, "geometry": { "type": "LineString", "coordinates": [ [ 110.9134466909387, 22.098618056468766 ], [ 111.36911347355519, 21.971316892656848 ] ] } },
+{ "type": "Feature", "properties": { "Id": 11 ,"name":"MG-890 line 11"}, "geometry": { "type": "LineString", "coordinates": [ [ 110.89322127238914, 22.06411587188423 ], [ 111.35840589902895, 21.933245516563563 ] ] } }
+]
+}

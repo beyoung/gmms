@@ -54,18 +54,18 @@ function showSubCom() {
     });
     sub_com.on('click', function (e) {
         marker.setLatLng(e.latlng);
-        map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 8);
         var table = createSubComDom(e.layer.feature);
         map.addLayer(marker);
         marker.bindPopup(table[0].outerHTML).openPopup();
         $('.leaflet-popup-content-wrapper').width(440).height(328);
+        map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 8);
     });
 };
 
 //添加点要素
 function addEarthquakePoints() {
     if (earthquakeLayer == null) {
-        var earthquakeFeedPointsURL = 'dist/json/gas_station.geojson'
+        var earthquakeFeedPointsURL = 'dist/json/gas_station.geojson';
 
         earthquakeLayer = L.geoJson.ajax(earthquakeFeedPointsURL, {
             pointToLayer: function (feature, latlng) {
@@ -160,13 +160,13 @@ function addLineStrings() {
             map.addLayer(lineMarkerLayer);
             lineMarkerLayer.on('click', function (e) {
                 marker.setLatLng(e.latlng);
-                map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 9)
                 var index = Math.floor(Math.random() * details.length);
                 var data = details[index];
                 //顺序很重要
                 map.addLayer(marker);
                 marker.bindPopup('<h3>' + data['name'] + '段监控</h3>' + '<p>拍摄时间: 2017-02-01 09:30</p>' + videos[Math.floor(Math.random() * videos.length)]).openPopup();
                 $('.leaflet-popup-content-wrapper').height(468).width(440);
+                map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 9)
             })
         });
 
@@ -357,13 +357,14 @@ function addPolygonLayer() {
             polygonLayer.on('click', function (e) {
                 marker.setLatLng(e.latlng);
                 marker.options.opacity = 1;
-                map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 8);
                 map.addLayer(marker);
                 marker.bindPopup("<h3>" + e.layer.feature.properties.name + "一周空气质量监控</h3>" + '<div id="polygonChart" style="width:520px;height:300px"></div>').openPopup();
                 $('.leaflet-popup-content-wrapper').width(560).height(365);
                 setTimeout(function () {
                     runPolygonChart();
+                    map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 8);
                 }, 250);
+
             })
         })
     } else {
@@ -392,12 +393,13 @@ function addDijiLayer() {
                 marker.setLatLng(e.latlng);
                 marker.options.opacity = 1;
                 // map.setView(e.latlng, 8);
-                map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 8);
+
                 map.addLayer(marker);
                 marker.bindPopup("<h3>" + e.layer.feature.properties.name + "土地使用情况</h3>" + '<div id="dijiChart" style="width:380px;height:300px"></div>').openPopup();
                 $('.leaflet-popup-content-wrapper').width(420).height(365);
                 setTimeout(function () {
                     runDijiChartScript();
+                    map.flyTo([e.latlng.lat + 0.7, e.latlng.lng], 8);
                 }, 250);
             })
         })

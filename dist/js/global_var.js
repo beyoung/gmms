@@ -41,9 +41,14 @@ var bolLineLayer
 //    draw control
 var drawControl = null;
 
-
 // spatial analyze layer
 var spatialAnlyzeLayer = null;
+
+// airline airline area layer
+
+var airline = null;
+var airlineArea = null;
+var airlineMarker = null;
 
 var colors_hex = [
     '#E52D34',

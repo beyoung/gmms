@@ -41,6 +41,17 @@ function switchSimPanel(switcher) {
             playback.destroy();
         }
         timeline = null;
+        if (airlineArea != null) {
+            map.removeLayer(airlineArea);
+        }
+
+        if (airlineMarker != null) {
+            map.removeLayer(airlineMarker);
+        }
+
+        if (airline != null) {
+            map.removeLayer(airline);
+        }
     }
 }
 

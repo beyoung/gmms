@@ -557,7 +557,7 @@ L.Playback.TrackController = L.Class.extend({
         var marker = track.setMarker(timestamp, this.options);
 
         if (marker) {
-            marker.addTo(this._map);
+            // marker.addTo(this._map);
             
             this._tracks.push(track);
         }            
@@ -743,8 +743,8 @@ L.Playback.TracksLayer = L.Class.extend({
 
     // add new geoJSON layer
     addLayer : function(geoJSON) {
-        this.layer.addData(geoJSON);
-        map.fitBounds(this.layer.getBounds());
+        // this.layer.addData(geoJSON);
+        // map.fitBounds(this.layer.getBounds());
     }
 });
 L.Playback = L.Playback || {};
@@ -988,7 +988,7 @@ L.Playback = L.Playback.Clock.extend({
             this._map.fire('playback:set:data');
             
             if (this.options.tracksLayer) {
-                this._tracksLayer.addLayer(geoJSON);
+                // this._tracksLayer.addLayer(geoJSON);
             }                  
         },
 
